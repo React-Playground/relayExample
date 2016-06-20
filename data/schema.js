@@ -6,7 +6,17 @@ import {
   GraphQLList
 } from 'graphql';
 
+var store = {};
 const Schema = (db) => {
+  let storeType = new GraphQLObjectType({
+    name: 'Store',
+    fields: () => ({
+      links: {
+        type: new GraphQLList(linkType),
+        resolve: () => db.collection("links").find({}).toArray()
+      },
+    })
+  })
 
   let linkType = new GraphQLObjectType({
     name: 'Link',
@@ -19,12 +29,12 @@ const Schema = (db) => {
 
   const schema = new GraphQLSchema({
     query: new GraphQLObjectType({
-      name: 'Query1',
+      name: 'Query',
       fields: () => ({
-        links: {
-          type: new GraphQLList(linkType),
-          resolve: () => db.collection("links").find({}).toArray()
-        },
+        store: {
+          type: storeType,
+          resolve: () => store
+        }
       })
     }),
 
