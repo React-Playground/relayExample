@@ -46684,9 +46684,20 @@
 	  _inherits(Main, _React$Component);
 	
 	  function Main() {
+	    var _Object$getPrototypeO;
+	
+	    var _temp, _this, _ret;
+	
 	    _classCallCheck(this, Main);
 	
-	    return _possibleConstructorReturn(this, Object.getPrototypeOf(Main).apply(this, arguments));
+	    for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
+	      args[_key] = arguments[_key];
+	    }
+	
+	    return _ret = (_temp = (_this = _possibleConstructorReturn(this, (_Object$getPrototypeO = Object.getPrototypeOf(Main)).call.apply(_Object$getPrototypeO, [this].concat(args))), _this), _this.setLimit = function (e) {
+	      var newLimit = Number(e.target.value);
+	      _this.props.relay.setVariables({ limit: newLimit });
+	    }, _temp), _possibleConstructorReturn(_this, _ret);
 	  }
 	
 	  _createClass(Main, [{
@@ -46705,6 +46716,25 @@
 	          'Links'
 	        ),
 	        _react2.default.createElement(
+	          'select',
+	          { onChange: this.setLimit },
+	          _react2.default.createElement(
+	            'option',
+	            { value: '1', defaultValue: 1 },
+	            '1'
+	          ),
+	          _react2.default.createElement(
+	            'option',
+	            { value: '3' },
+	            '3'
+	          ),
+	          _react2.default.createElement(
+	            'option',
+	            { value: '5' },
+	            '5'
+	          )
+	        ),
+	        _react2.default.createElement(
 	          'ul',
 	          null,
 	          content
@@ -46717,6 +46747,10 @@
 	}(_react2.default.Component);
 	
 	Main = _reactRelay2.default.createContainer(Main, {
+	  initialVariables: {
+	    limit: 1
+	  },
+	
 	  fragments: {
 	    store: function store() {
 	      return function (RQL_0) {
@@ -46727,8 +46761,8 @@
 	              metadata: {},
 	              name: 'first',
 	              value: {
-	                kind: 'CallValue',
-	                callValue: 5
+	                kind: 'CallVariable',
+	                callVariableName: 'limit'
 	              }
 	            }],
 	            children: [{
